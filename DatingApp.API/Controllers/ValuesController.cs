@@ -13,7 +13,7 @@ namespace DatingApp.ASI.Controllers
     //port 5000 is default port for Kestrel
     //REST API uses Verbs (e.g. GET, POST, PUT, DELETE) to identify action that it is going to return
 
-[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
