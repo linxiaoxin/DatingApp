@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { User } from '../_models/User';
 import { PaginatedResult } from '../_models/Pagination';
 import { map } from 'rxjs/operators';
+import { Message } from '../_models/Message';
+import { resetCompiledComponents } from '@angular/core/src/render3/jit/module';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -68,5 +70,46 @@ export class UserService {
 
   likeUser(userId: number, recipientId: number) {
     return this.http.post(this.baseUrl + 'users/' + userId + '/like/' + recipientId , {});
+  }
+
+  getMessages(userId: number, page?, itemPerPage?, messageContainer?) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemPerPage != null) {
+      params = params.append('PageNumber', page)
+                    .append('PageSize', itemPerPage);
+    }
+    if (messageContainer != null) {
+      params = params.append('MessageContainer', messageContainer);
+    }
+
+    return this.http.get<Message[]>(this.baseUrl + 'users/' + userId + '/messages', {observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
+  }
+
+  getMessageThread(userId: number, recipientId: number) {
+    return this.http.get<Message[]>(this.baseUrl + 'users/' + userId + '/messages/thread/' + recipientId);
+  }
+
+  sendMessage(userId: number, message: Message) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/', message);
+  }
+
+  deleteMessage(msgId: number, userid: number) {
+    return this.http.post(this.baseUrl + 'users/' + userid + '/messages/' + msgId, {});
+  }
+
+  markAsRead(msgId: number, userId: number) {
+    this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + msgId + '/read', {}).subscribe();
   }
 }

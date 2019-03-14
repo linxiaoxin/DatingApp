@@ -16,10 +16,11 @@ export class ListsComponent implements OnInit {
   pagination: Pagination;
   likesParam: string;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private alertify: AlertifyService, private userService: UserService) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute
+    ,         private alertify: AlertifyService, private userService: UserService) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data =>{
+    this.route.data.subscribe(data => {
       this.users = data.user.result;
       this.pagination = data.user.pagination;
     });
