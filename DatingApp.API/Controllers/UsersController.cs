@@ -34,9 +34,16 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers(){
-            var users = await _repo.GetUsers();
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams){
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser(currentUserId);
+            userParams.UserId = currentUserId;
+            if(userParams.Gender == null)
+                userParams.Gender = userFromRepo.gender == "male" ?"female": "male";
+            var users = await _repo.GetUsers(userParams);
             var userLists = _mapper.Map<IEnumerable<UserForListDTO>>(users);
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
             return Ok(userLists);
         }
 
