@@ -46,6 +46,7 @@ namespace DatingApp.API
             //apply to the scope that the service is used.
             services.AddScoped<IAuthRespository, AuthRespository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
+            services.AddScoped<LogUserActivity>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {
                 options.TokenValidationParameters = new TokenValidationParameters
