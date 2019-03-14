@@ -30,6 +30,7 @@ import { MemberEditComponent } from './member/member-edit/member-edit.component'
 import { MemberEditResolver } from './_resolvers/member-edit-resolver';
 import { PreventUnsavedChanges } from './_guard/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './member/photo-editor/photo-editor.component';
+import { ListResolver } from './_resolvers/list-resolver';
 
 
 export function tokenGetter() {
@@ -81,7 +82,8 @@ export function tokenGetter() {
       UserService,
       MemberDetailsResolver,
       MemberListResolver,
-      MemberEditResolver
+      MemberEditResolver,
+      ListResolver
    ],
    bootstrap: [
       AppComponent
