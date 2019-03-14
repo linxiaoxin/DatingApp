@@ -11,6 +11,7 @@ import { MemberEditComponent } from './member/member-edit/member-edit.component'
 import { MemberEditResolver } from './_resolvers/member-edit-resolver';
 import { PreventUnsavedChanges } from './_guard/prevent-unsaved-changes.guard';
 import { ListResolver } from './_resolvers/list-resolver';
+import { MessagesResolver } from './_resolvers/messages-resolver';
 
 export const appRoute: Routes = [
     {path: '', component : HomeComponent},
@@ -22,7 +23,7 @@ export const appRoute: Routes = [
             {path: 'members/:id', component : MemberDetailsComponent, resolve: {user: MemberDetailsResolver}},
             {path: 'member/edit', component : MemberEditComponent, resolve: {user: MemberEditResolver}
                 , canDeactivate: [PreventUnsavedChanges]},
-            {path: 'messages', component : MessagesComponent},
+            {path: 'messages', component : MessagesComponent, resolve: {messages: MessagesResolver}},
             {path: 'lists', component : ListsComponent, resolve: {user: ListResolver}},
         ]
     },
