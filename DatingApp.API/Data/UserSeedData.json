@@ -1,6 +1,6 @@
 [
   {
-    "Username": "Hess Vasquez",
+    "Username": "Hess",
     "Gender": "male",
     "DateOfBirth": "1970-05-30T06:46:41",
     "Password": "password",
@@ -21,7 +21,7 @@
     ]
   },
   {
-    "Username": "Adams Russo",
+    "Username": "Adams",
     "Gender": "male",
     "DateOfBirth": "1978-07-02T02:41:09",
     "Password": "password",
@@ -42,7 +42,7 @@
     ]
   },
   {
-    "Username": "Hart Wong",
+    "Username": "Hart",
     "Gender": "male",
     "DateOfBirth": "1970-01-19T04:50:56",
     "Password": "password",
@@ -63,7 +63,7 @@
     ]
   },
   {
-    "Username": "Sampson Best",
+    "Username": "Sampson",
     "Gender": "male",
     "DateOfBirth": "1977-10-04T02:18:08",
     "Password": "password",
@@ -84,7 +84,7 @@
     ]
   },
   {
-    "Username": "Hull Emerson",
+    "Username": "Hull",
     "Gender": "male",
     "DateOfBirth": "1978-11-17T03:10:57",
     "Password": "password",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "Username": "Rodriquez Summers",
+    "Username": "Rodriquez",
     "Gender": "male",
     "DateOfBirth": "1971-05-22T05:45:25",
     "Password": "password",
@@ -126,7 +126,7 @@
     ]
   },
   {
-    "Username": "Chan Soto",
+    "Username": "Chan",
     "Gender": "male",
     "DateOfBirth": "1973-05-20T06:32:29",
     "Password": "password",
@@ -147,7 +147,7 @@
     ]
   },
     {
-      "Username": "Elisa Washington",
+      "Username": "Elisa",
       "Gender": "female",
       "DateOfBirth": "1992-01-22T02:13:20",
       "Password": "password",
@@ -168,7 +168,7 @@
       ]
     },
     {
-      "Username": "Rachel Ashley",
+      "Username": "Rachel",
       "Gender": "female",
       "DateOfBirth": "1989-10-25T12:44:06",
       "Password": "password",
@@ -189,7 +189,7 @@
       ]
     },
     {
-      "Username": "Letitia Curtis",
+      "Username": "Curtis",
       "Gender": "female",
       "DateOfBirth": "1990-09-06T07:00:45",
       "Password": "password",
@@ -210,7 +210,7 @@
       ]
     },
     {
-      "Username": "Frances Joseph",
+      "Username": "Joseph",
       "Gender": "female",
       "DateOfBirth": "1996-03-09T08:59:35",
       "Password": "password",
@@ -231,7 +231,7 @@
       ]
     },
     {
-      "Username": "Amy Stein",
+      "Username": "Amy",
       "Gender": "female",
       "DateOfBirth": "1980-05-06T02:00:58",
       "Password": "password",

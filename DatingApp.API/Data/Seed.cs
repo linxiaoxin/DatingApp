@@ -2,46 +2,69 @@ using System.Collections.Generic;
 using DatingApp.API.Model;
 using Newtonsoft.Json;
 using DatingApp.API.Data;
+using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace DatingApp.API.Data
 {
     public class Seed
     {
-        private readonly DataContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public Seed(DataContext context)
+        public Seed(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
-            this._context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
+       public void SeedUsers()
+        {
 
-        public void SeedUsers(){
-
-            var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
-            var users = JsonConvert.DeserializeObject<List<User>>(userData);
-
-            foreach (var user in users)
+            if (! _userManager.Users.Any())
             {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash("password", out passwordHash, out passwordSalt);
+                var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
+                var users = JsonConvert.DeserializeObject<List<User>>(userData);
 
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-                user.UserName = user.UserName.ToLower();
+                var roles = new List<Role>
+                {
+                    new Role {Name = "Member"},
+                    new Role {Name = "Admin"},
+                    new Role {Name = "Moderator"},
+                    new Role {Name = "VIP"},
+                };
+                
+                foreach (var role in roles)
+                {
+                    _roleManager.CreateAsync(role);
+                }
 
-                this._context.Users.Add(user);
-               
+                foreach (var user in users)
+                {
+                    _userManager.CreateAsync(user, "password").Wait();
+                    _userManager.AddToRoleAsync(user, "Member");
+                }
+
+                // add an admin user
+                var adminUser = new User { UserName="Admin"};
+
+                IdentityResult result = _userManager.CreateAsync(adminUser, "password").Result;
+
+                if(result.Succeeded)
+                {
+                   var admin = _userManager.FindByNameAsync("Admin").Result;
+                   _userManager.AddToRolesAsync(admin, new[]{"Admin","Moderator"}).Wait();      
+                }
             }
-
-            this._context.SaveChanges();
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            //system cryptography
-            using(var hmac = new System.Security.Cryptography.HMACSHA512()){
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
+        // private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        // {
+        //     //system cryptography
+        //     using (var hmac = new System.Security.Cryptography.HMACSHA512())
+        //     {
+        //         passwordSalt = hmac.Key;
+        //         passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        //     }
+        // }
     }
 }
